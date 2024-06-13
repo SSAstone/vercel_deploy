@@ -1,5 +1,7 @@
 import { Request, Response, Application, NextFunction } from 'express';
-import userRouter from '../api/user/controllers/user';
+import userRouter from '../api/user/user.router';
+import productRouter from '../api/product/product.router';
+import categoryRouter from '../api/category/category.router';
 
 interface RouteInterface {
     path: string;
@@ -16,11 +18,18 @@ const routes: Array<RouteInterface> = [
         controller: (req: Request, res: Response) => {
             res.json({
                 message: 'Hello World'
-            });
+            })
         }
     },
-    
-];
+    {
+        path: '/product',
+        controller: productRouter
+    },
+    {
+        path: '/category',
+        controller: categoryRouter
+    }
+]
 
 const useRoutes = (app: Application): any => {
     routes.forEach((route: RouteInterface): void => {
