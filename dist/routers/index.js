@@ -6,6 +6,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const user_router_1 = __importDefault(require("../api/user/user.router"));
 const product_router_1 = __importDefault(require("../api/product/product.router"));
 const category_router_1 = __importDefault(require("../api/category/category.router"));
+const router_1 = __importDefault(require("../api/others/router"));
 const routes = [
     {
         path: '/user',
@@ -26,6 +27,10 @@ const routes = [
     {
         path: '/category',
         controller: category_router_1.default
+    },
+    {
+        path: '/others',
+        controller: router_1.default
     }
 ];
 const useRoutes = (app) => {

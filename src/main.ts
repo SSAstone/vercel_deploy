@@ -1,20 +1,13 @@
-import express, { Request, Response } from 'express';
-import mongoose, { Schema, model, Document } from 'mongoose';
 import dotenv from 'dotenv'
-import app from './app';
-const PORT = process.env.PORT || 3000;
+import MongoDBConnect from './lib/utils/mongodb_connect';
 dotenv.config()
+import app from './app'
 
-const URI = process.env.MONGODB_URI as string;
-console.log("🚀 ~ URI:", URI)
+const port = process.env.PORT || 3000;
 
-mongoose.connect(URI)
-  .then(() => {
-    console.log('Connected to MongoDB');
-    app.listen(PORT, () => {
-      console.log(`Server is running on port ${PORT}`);
-    });
-  })
-  .catch(err => {
-    console.error('Database connection error:', err);
-  });
+console.log(process.env.NODE_ENV)
+
+app.listen(port, async () => {
+    await MongoDBConnect()    
+    console.log(`Example app listening at http://localhost:${port}`)
+})

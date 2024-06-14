@@ -12,13 +12,22 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const dotenv_1 = __importDefault(require("dotenv"));
-const mongodb_connect_1 = __importDefault(require("./lib/utils/mongodb_connect"));
-dotenv_1.default.config();
-const app_1 = __importDefault(require("./app"));
-const port = process.env.PORT || 3000;
-console.log(process.env.NODE_ENV);
-app_1.default.listen(port, () => __awaiter(void 0, void 0, void 0, function* () {
-    yield (0, mongodb_connect_1.default)();
-    console.log(`Example app listening at http://localhost:${port}`);
-}));
+const mongoose_1 = __importDefault(require("mongoose"));
+let db;
+const MongoDBConnect = () => __awaiter(void 0, void 0, void 0, function* () {
+    if (db)
+        return db;
+    try {
+        const uri = process.env.MONGODB_URI;
+        yield mongoose_1.default
+            .connect(uri)
+            .then(() => console.log("Connection successful"))
+            .catch((err) => console.log(err));
+        db = mongoose_1.default.connection;
+        return db;
+    }
+    catch (error) {
+        console.error("Error connecting to MongoDB:", error.message);
+    }
+});
+exports.default = MongoDBConnect;

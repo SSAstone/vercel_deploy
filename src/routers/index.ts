@@ -2,6 +2,7 @@ import { Request, Response, Application, NextFunction } from 'express';
 import userRouter from '../api/user/user.router';
 import productRouter from '../api/product/product.router';
 import categoryRouter from '../api/category/category.router';
+import othersRouter from '../api/others/router';
 
 interface RouteInterface {
     path: string;
@@ -28,6 +29,10 @@ const routes: Array<RouteInterface> = [
     {
         path: '/category',
         controller: categoryRouter
+    },
+    {
+        path: '/others',
+        controller: othersRouter
     }
 ]
 
